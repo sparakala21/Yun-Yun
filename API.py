@@ -42,7 +42,7 @@ def request_page():
     for user in users:
         if user["name"] == user_query:
             print(user_query, "has left")
-            user["isHere": False]
+            user["isHere"] =False
             json_dump = json.dumps(user)
             users.remove(user)
             return json_dump
