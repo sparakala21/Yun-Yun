@@ -8,6 +8,19 @@ Created on Mon Feb  6 20:13:05 2023
 from flask import *
 import json
 import time
+
+
+'''
+http://ipaddress:5000/add/?user={username}    add user username
+http://ipaddress:5000/add/?user={username}    remove user username
+http://ipaddress:5000                         main list
+
+
+
+
+'''
+
+
 def entry_time(user, l):
     print("{} entered at {}:{} on {}/{}/{}".format(user, l[3],l[4], l[1],l[2], l[0]))
     
