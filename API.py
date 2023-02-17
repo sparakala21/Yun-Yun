@@ -25,10 +25,6 @@ http://ipaddress:5000/union                              union list
 
 http://ipaddress:5000/commons                            union list
 
-
-
-
-
 '''
 
 
