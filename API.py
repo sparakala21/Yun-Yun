@@ -11,9 +11,20 @@ import time
 
 
 '''
-http://ipaddress:5000/add/?user={username}    add user username
-http://ipaddress:5000/add/?user={username}    remove user username
-http://ipaddress:5000                         main list
+http://ipaddress:5000/commons/add/?user={username}       add user username to commons
+
+http://ipaddress:5000/commons/remove/?user={username}    remove user username from commons
+
+http://ipaddress:5000/union/add/?user={username}         add user username to union
+
+http://ipaddress:5000/union/remove/?user={username}      remove user username from union
+
+http://ipaddress:5000/add/?user={username}               remove user username
+
+http://ipaddress:5000/union                              union list
+
+http://ipaddress:5000/commons                            union list
+
 
 
 
@@ -29,21 +40,22 @@ def exit_time(user, l):
 app = Flask(__name__)
 
 
-users = []
-@app.route('/', methods=['GET'])
-def home_page():
-    for user in users:
+union = []
+commons = []
+@app.route('/union', methods=['GET'])
+def union_page():
+    for user in union:
         print(user['name'])
-    return users
+    return union
 
-@app.route('/add/', methods=['GET'])
-def add_page():
+@app.route('/union/add/', methods=['GET'])
+def add_page_union():
     
     
     user_query = str(request.args.get('user'))
     if user_query == '':
         return json_dump
-    for user in users:
+    for user in union:
         if user["name"] == user_query:
             print("Repeated user", user_query)
             return json.dumps(user)
@@ -51,20 +63,62 @@ def add_page():
     
     data_set = {'name': user_query,'time': times[0]}
     entry_time(user_query, times[1])
-    users.append(data_set)
+    union.append(data_set)
     json_dump = json.dumps(data_set)
     
     return json_dump
-@app.route('/remove/', methods=['GET'])
-def remove_page():
+@app.route('/union/remove/', methods=['GET'])
+def remove_page_union():
     user_query = str(request.args.get('user'))
     if user_query == '':
         return json.dumps()
-    for user in users:
+    for user in union:
         if user["name"] == user_query:
-            users.remove(user)
+            union.remove(user)
             return json.dumps(user)
     print("User {} not in list", user_query)
     return json.dumps(user_query)
+
+
+@app.route('/commons', methods=['GET'])
+def commons_page():
+    for user in commons:
+        print(user['name'])
+    return commons
+
+
+@app.route('/commons/add/', methods=['GET'])
+def add_page_commons():
+    
+    
+    user_query = str(request.args.get('user'))
+    if user_query == '':
+        return json_dump
+    for user in commons:
+        if user["name"] == user_query:
+            print("Repeated user", user_query)
+            return json.dumps(user)
+    times = (time.time(),time.localtime())
+    
+    data_set = {'name': user_query,'time': times[0]}
+    entry_time(user_query, times[1])
+    commons.append(data_set)
+    json_dump = json.dumps(data_set)
+    
+    return json_dump
+@app.route('/commons/remove/', methods=['GET'])
+def remove_page_commons():
+    user_query = str(request.args.get('user'))
+    if user_query == '':
+        return json.dumps()
+    for user in commons:
+        if user["name"] == user_query:
+            commons.remove(user)
+            return json.dumps(user)
+    print("User {} not in list", user_query)
+    return json.dumps(user_query)
+
+
+
 if __name__ == '__main__':
     app.run(host = "0.0.0.0")
