@@ -39,7 +39,11 @@ app = Flask(__name__)
 
 union = []
 commons = []
+<<<<<<< Updated upstream
 @app.route('/union', methods=['GET'])
+=======
+@app.route('/union/', methods=['GET'])
+>>>>>>> Stashed changes
 def union_page():
     for user in union:
         print(user['name'])
