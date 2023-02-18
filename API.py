@@ -35,6 +35,7 @@ def exit_time(user, l):
     print("{} left at {}:{} on {}/{}/{}".format(user, l[3],l[4], l[1],l[2], l[0]))
 app = Flask(__name__)
 
+<<<<<<< Updated upstream
 
 union = []
 commons = []
@@ -44,6 +45,34 @@ def union_page():
         print(user['name'])
     return union
 
+=======
+person1 = {
+    'name':'name1',
+    'time':0.0
+    }
+person2 = {
+    'name':'name2',
+    'time':0.0
+    }
+person3 = {
+    'name':'name3',
+    'time':0.0
+    }
+union = [person1,person2,person3]
+commons = []
+@app.route('/union/group/', methods=['GET'])
+def union_page():
+    user_query = str(request.args.get('group'))
+    for user in union:
+        
+        print(user['name'])
+    return union
+'''
+@app.route('/json-example', methods=['POST'])
+def json_example():
+    return 'JSON Object Example'
+'''
+>>>>>>> Stashed changes
 @app.route('/union/add/', methods=['GET'])
 def add_page_union():
     
